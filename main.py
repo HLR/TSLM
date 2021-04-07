@@ -607,10 +607,30 @@ import matplotlib.pyplot as plt
 import inflect
 inflect = inflect.engine()
 
+only_test = 'n'
+while True:
+    only_test = input("Run only Test (y/n):")
+    if only_test == 'y' or only_test == 'n':
+        break
+        
+if only_test == 'y':
+    start_it = 300
+    end_it = 301
+    Test = True
+    start_e = 0
+    end_e = 0
+else:
+    start_it = 0
+    end_it = 150
+    Test = False
+    start_e = 0
+    end_e = len(train_propara_roberta_qa)
+
 optimizer = torch.optim.SGD(model.parameters(), lr=3e-4)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.5)
 device = 'cuda:0'
-# model.load_state_dict(torch.load("./roberta2/best_model"))
+if Test:
+    model.load_state_dict(torch.load("./saves/best_model"))
 model.to(device)
 classifier_option = 1
 
@@ -619,7 +639,7 @@ best_location = 0
 best_sum = 0
 all_losses = []
 dev_sum = []
-for iteration in tqdm(range(0,100)):
+for iteration in tqdm(range(start_it,end_it)):
     it_total_loss = 0
     it_location_total = 0
     it_location_correct = 0
@@ -629,7 +649,7 @@ for iteration in tqdm(range(0,100)):
     it_change_correct = {"NC": 0, "M": 0, "C": 0, "D": 0}
 #     random.shuffle(train_propara_roberta_qa)
     model.train()
-    for sample_id in tqdm(range(len(train_propara_roberta_qa))):
+    for sample_id in tqdm(range(len(train_propara_roberta_qa[start_e:end_e]))):
         try:
             sample = train_propara_roberta_qa[sample_id]
 #             print(sample['para_id'])
@@ -764,39 +784,41 @@ for iteration in tqdm(range(0,100)):
             torch.cuda.empty_cache()
             print("one passed")
 #             raise
-    
-    scheduler.step()
-    print("The iteration loss is: ", it_total_loss)
-    all_losses.append(it_total_loss)
-    plt.figure()
-    plt.plot(all_losses, label="Loss")
-    plt.legend()
-    plt.savefig('saves/train_plot_loss.png')
-    plt.close()
-    print("The iteration ", str(iteration), " final results are: ")
-    print(it_location_total, it_location_correct)
-    print(it_status_total, it_status_correct)
-    print("The location accuracy is: ", it_location_correct / it_location_total)
-    print("The status accuracy is: ", (it_status_correct["-"] + it_status_correct["?"] + it_status_correct["Location"]) / (it_status_total["-"] + it_status_total["?"] + it_status_total["Location"]))
-    torch.save(model.state_dict(), "saves/last_model")
+    if not Test:
+        scheduler.step()
+        print("The iteration loss is: ", it_total_loss)
+        all_losses.append(it_total_loss)
+        plt.figure()
+        plt.plot(all_losses, label="Loss")
+        plt.legend()
+        plt.savefig('saves/train_plot_loss.png')
+        plt.close()
+        print("The iteration ", str(iteration), " final results are: ")
+        print(it_location_total, it_location_correct)
+        print(it_status_total, it_status_correct)
+        print("The location accuracy is: ", it_location_correct / it_location_total)
+        print("The status accuracy is: ", (it_status_correct["-"] + it_status_correct["?"] + it_status_correct["Location"]) / (it_status_total["-"] + it_status_total["?"] + it_status_total["Location"]))
+        torch.save(model.state_dict(), "saves/last_model")
+        
     model.eval()
     status_accuracy_test, location_accuracy_test = test_model(model, dev_propara_roberta_qa, roberta_tokenizer_fast, roberta_tokenizer, name="dev", it=iteration)
 
-    dev_sum.append(status_accuracy_test + location_accuracy_test)
-    plt.figure()
-    plt.plot(dev_sum, label="Acc_Sum")
-    plt.legend()
-    plt.savefig('saves/dev_acc_sum.png')
-    plt.close()
+    if not Test:
+        dev_sum.append(status_accuracy_test + location_accuracy_test)
+        plt.figure()
+        plt.plot(dev_sum, label="Acc_Sum")
+        plt.legend()
+        plt.savefig('saves/dev_acc_sum.png')
+        plt.close()
 
-    if best_status < status_accuracy_test:
-        torch.save(model.state_dict(), "saves/best_status_model")
-        best_status = status_accuracy_test
-    if best_location < location_accuracy_test:
-        torch.save(model.state_dict(), "saves/best_location_model")
-        best_location = location_accuracy_test
-    if best_sum < status_accuracy_test + location_accuracy_test:
-        torch.save(model.state_dict(), "saves/best_model")
-        best_sum = status_accuracy_test + location_accuracy_test
+        if best_status < status_accuracy_test:
+            torch.save(model.state_dict(), "saves/best_status_model")
+            best_status = status_accuracy_test
+        if best_location < location_accuracy_test:
+            torch.save(model.state_dict(), "saves/best_location_model")
+            best_location = location_accuracy_test
+        if best_sum < status_accuracy_test + location_accuracy_test:
+            torch.save(model.state_dict(), "saves/best_model")
+            best_sum = status_accuracy_test + location_accuracy_test
         
     status_accuracy_test, location_accuracy_test = test_model(model, test_propara_roberta_qa, roberta_tokenizer_fast, roberta_tokenizer, name="test", it=iteration)
