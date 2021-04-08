@@ -18,6 +18,10 @@ To generate the preprocessed jsons from the original data in Propara, use the fo
 
 The resulting jsons will be stored in the `data` folder and replace the existing ones.
 
+### Downloading the pretrained models and data
+Please follow this link to download the pretrained model for Propara and the Data for the NPN Cooking recipes.
+[Google Drive Download Link](https://drive.google.com/drive/folders/1gw0E2R81NgcCZwsahmAH--5rJp56sSVZ?usp=sharing)
+
 ### Testing with the pretrained model
 First download the `best_model` and place the model in the `saves` folder under the root.
 To test with the pretrained model please use the following command and answer `y` when the question `test only (y/n)` prompts to the terminal.
@@ -54,7 +58,6 @@ To train the model use the previous command and answer `n` when the question is 
 | TSLM + Constraints | - | - | -          | **69.4** | **70.2** | **69.7** |
 
 ### Running the NPN model
-First Download and locate the `npn_data.json` under a folder in the root with the name `cooking_dataset/`.
 To run the NPN model run the `npn_main.py` instead of the `main.py`. 
 The data we are using as input for NPN is also stored in `cooking_dataset/npn_data.json`.
 
