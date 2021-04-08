@@ -53,8 +53,11 @@ To train the model use the previous command and answer `n` when the question is 
 | TSLM  | **80.22** | **57.33** | 38.9           | 69.1 | 68.5 | 68.8 |
 | TSLM + Constraints | - | - | -          | **69.4** | **70.2** | **69.7** |
 
+### Running the NPN model
+To run the NPN model run the `npn_main.py` instead of the `main.py`. 
+The data we are using as input for NPN is also stored in `cooking_dataset/npn_data.json`.
+
 ## Citation
 Please use the following to cite our paper.
 
 > Cite To be Added Later
-

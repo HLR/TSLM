@@ -2,6 +2,8 @@ saves/
 saves
 .saves/
 .saves
+npn_saves/
+npn_saves
 .ipynb_checkpoints/
 __pycache__/
 prepare/.ipynb_checkpoints/
