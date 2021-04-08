@@ -54,6 +54,7 @@ To train the model use the previous command and answer `n` when the question is 
 | TSLM + Constraints | - | - | -          | **69.4** | **70.2** | **69.7** |
 
 ### Running the NPN model
+First Download and locate the `npn_data.json` under a folder in the root with the name `cooking_dataset/`.
 To run the NPN model run the `npn_main.py` instead of the `main.py`. 
 The data we are using as input for NPN is also stored in `cooking_dataset/npn_data.json`.
 

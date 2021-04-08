@@ -4,6 +4,8 @@ saves
 .saves
 npn_saves/
 npn_saves
+cooking_dataset
+cooking_dataset/
 .ipynb_checkpoints/
 __pycache__/
 prepare/.ipynb_checkpoints/
