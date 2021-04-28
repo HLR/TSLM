@@ -64,4 +64,13 @@ The data we are using as input for NPN is also stored in `cooking_dataset/npn_da
 ## Citation
 Please use the following to cite our paper.
 
-> Cite To be Added Later
+```
+@misc{faghihi2021timestamped,
+      title={Time-Stamped Language Model: Teaching Language Models to Understand the Flow of Events}, 
+      author={Hossein Rajaby Faghihi and Parisa Kordjamshidi},
+      year={2021},
+      eprint={2104.07635},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
