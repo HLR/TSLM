@@ -54,8 +54,8 @@ To train the model use the previous command and answer `n` when the question is 
 |----------------------------------------|----------------|-----------------|-----------------|----------------|----------------|----------------|----------------|----------------|
 |                                        | Sentence-level  |              |                 | Document-level |                |                |
 | Model                                  | C1              | C2               | C3     | Macro-Avg     | Micro-Avg     | P              | R              | F1             |
-| TSLM  | **80.22** | **57.33** | 38.9        | 58.81        | 58.25           | 69.1 | 68.5 | 68.8 |
-| TSLM + Constraints | - | - | -    | -  | -        | **69.4** | **70.2** | **69.7** |
+| TSLM  | **79.37** | **53.97** | 40.97       | 58.81        | 58.25           | 67.9 | 67.2 | 67.6 |
+| TSLM + Constraints | - | - | -    | -  | -        | **68.3** | **68.8** | **68.5** |
 
 ### Running the NPN model
 To run the NPN model run the `npn_main.py` instead of the `main.py`. 
