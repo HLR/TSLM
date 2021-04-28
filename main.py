@@ -520,7 +520,7 @@ def test_model(model, test_set, tokenizer_fast, tokenizer, name="test", it=0):
                         Canswer = Canswer.replace('Ġ', '')
 #                         print(state[0])
                         if inflect.singular_noun(Canswer) != False:
-                            answer = inflect.singular_noun(Canswer)
+                            Canswer = inflect.singular_noun(Canswer)
                         if state[2] == -1:
                             Canswer = state[0]
                     spans.append(answer)
@@ -735,7 +735,7 @@ for iteration in tqdm(range(start_it,end_it)):
                         Canswer = Canswer.replace('Ġ', '')
 #                         print(state[0])
                         if inflect.singular_noun(Canswer) != False:
-                            answer = inflect.singular_noun(Canswer)
+                            Canswer = inflect.singular_noun(Canswer)
                         if state[2] == -1:
                             Canswer = state[0]
                     if location_match(answer, state[0]) and status_labels[step].item() == 0:
