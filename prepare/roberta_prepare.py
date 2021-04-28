@@ -76,8 +76,9 @@ def update_propara_data(examples):
         boundaries = []
         start = 0
         for m in re.finditer('/s'.lower(), sentences.lower()):
-            boundaries.append((start, m.start()-2))
-            start = m.end() + 2
+            if sentences[m.end()] == ">":
+                boundaries.append((start, m.start()-2))
+                start = m.end() + 2
     #         print(' found', m.start(), m.end())
         boundaries.append((start, len(sentences)))
     #     print(boundaries)
@@ -226,15 +227,24 @@ def update_propara_data(examples):
                                     selected_boundary = (0, 0)
                                 else:
                                     selected_boundary = (0, 0)
-                                    for can_loc in all_loc:
-    #                                     print(can_loc)
-                                        if can_loc[0] < boundaries[time-1][0] and can_loc[0] > selected_boundary[0]:
-                                            selected_boundary = can_loc
-                                    if selected_boundary == (0,0):
-                                        selected_boundary = all_loc[-1]
-                                        for can_loc in all_loc: 
-                                             if can_loc[1] > boundaries[time-1][1] and can_loc[1] < selected_boundary[1]:
-                                                    selected_boundary = can_loc
+                                    # check whether it is in the next sentence
+                                    if len(boundaries) > time:
+                                        for can_loc in all_loc:
+                                            if can_loc[0] >= boundaries[time][0] and can_loc[1] <= boundaries[time][1]:
+                                                selected_boundary = can_loc
+                                                break
+                                    if selected_boundary != (0, 0):
+                                        # check whether it is before this step
+                                        for can_loc in all_loc:
+        #                                     print(can_loc)
+                                            if can_loc[0] < boundaries[time-1][0] and can_loc[0] > selected_boundary[0]:
+                                                selected_boundary = can_loc
+                                        # check whether it is after this step
+                                        if selected_boundary == (0,0):
+                                            selected_boundary = all_loc[-1]
+                                            for can_loc in all_loc: 
+                                                 if can_loc[1] > boundaries[time-1][1] and can_loc[1] < selected_boundary[1]:
+                                                        selected_boundary = can_loc
                                 final_loc = selected_boundary
 
     #                     except:

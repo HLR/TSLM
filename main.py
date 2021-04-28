@@ -511,8 +511,10 @@ def test_model(model, test_set, tokenizer_fast, tokenizer, name="test", it=0):
                 for step, state in enumerate(states):
                     final_max1 = (outputs['start_logits'][step]==max1[step]).nonzero()[0][0].item()
                     final_max2 = (outputs['start_logits'][step]==max1[step]).nonzero()[0][0].item()
-                    answer = ' '.join(all_tokens[final_max1 : final_max2 + 1])
-                    answer = answer.replace('Ġ', '')
+                    answer = ''.join(all_tokens[final_max1 : final_max2 + 1])
+                    if len(answer) and answer[0] == "Ġ":
+                        answer = answer[1:]
+                    answer = answer.replace('Ġ', ' ')
                     if inflect.singular_noun(answer) != False:
                         answer = inflect.singular_noun(answer)                    
                     if status_labels[step].item() == 0:
@@ -726,16 +728,20 @@ for iteration in tqdm(range(start_it,end_it)):
                 for step, state in enumerate(states):
                     final_max1 = (outputs['start_logits'][step]==max1[step]).nonzero()[0][0].item()
                     final_max2 = (outputs['start_logits'][step]==max1[step]).nonzero()[0][0].item()
-                    answer = ' '.join(all_tokens[final_max1 : final_max2 + 1])
-                    answer = answer.replace('Ġ', '')
+                    answer = ''.join(all_tokens[final_max1 : final_max2 + 1])
+                    if len(answer) and answer[0] == "Ġ":
+                        answer = answer[1:]
+                    answer = answer.replace('Ġ', ' ')
                     if inflect.singular_noun(answer) != False:
                         answer = inflect.singular_noun(answer)                    
                     if status_labels[step].item() == 0:
                         Canswer = ' '.join(all_tokens[state[2]+padding : state[3] + padding + 1])
-                        Canswer = Canswer.replace('Ġ', '')
+                        if len(Canswer) and Canswer[0] == "Ġ":
+                            Canswer = Canswer[1:]
+                        Canswer = Canswer.replace('Ġ', ' ')
 #                         print(state[0])
-                        if inflect.singular_noun(Canswer) != False:
-                            Canswer = inflect.singular_noun(Canswer)
+#                         if inflect.singular_noun(Canswer) != False:
+#                             Canswer = inflect.singular_noun(Canswer)
                         if state[2] == -1:
                             Canswer = state[0]
                     if location_match(answer, state[0]) and status_labels[step].item() == 0:
