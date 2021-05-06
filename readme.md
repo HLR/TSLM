@@ -9,7 +9,7 @@ To use this implmentation you need to install the following packages:
 > 
 > tqdm
 > 
-> spacy
+> spacy 2.*
 > 
 > difflib
 > 
