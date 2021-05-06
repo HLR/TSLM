@@ -3,7 +3,7 @@ This repository is the implementation of the NAACL 2021 accepted paper " Time-St
 
 To use this implmentation you need to install the following packages:
 
-> pytorch
+> pytorch 1.7.0
 > 
 > transformers 3.5.1
 > 
