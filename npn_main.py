@@ -407,7 +407,7 @@ else:
     end_it = 100
     Test = False
     start_e = 0
-    end_e = 10
+    end_e = len(npn_qa_train)
 #     end_e = len(npn_qa_train)
     
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-6)

@@ -1,10 +1,7 @@
 import torch
 import torch.nn as nn
-import torchvision.models as models
-import torchvision.transforms as transforms
 import torch.nn.functional as F
 from torch.autograd import Variable
-from PIL import Image
 import string
 from os import path
 
