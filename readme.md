@@ -4,7 +4,7 @@ This repository is the implementation of the NAACL 2021 accepted paper " Time-St
 To use this implmentation you need to install the following packages:
 
 > pytorch
-> transformers
+> transformers 
 > tqdm
 > spacy
 > difflib
@@ -22,6 +22,8 @@ The resulting jsons will be stored in the `data` folder and replace the existing
 Please follow this link to download the pretrained model for Propara and the Data for the NPN Cooking recipes.
 [Google Drive Download Link](https://drive.google.com/drive/folders/1gw0E2R81NgcCZwsahmAH--5rJp56sSVZ?usp=sharing)
 
+Unzip the npn data and put the json under the `cooking_dataset/`.
+Put the `best_model` under the `saves/` folder.
 ### Testing with the pretrained model
 First download the `best_model` and place the model in the `saves` folder under the root.
 To test with the pretrained model please use the following command and answer `y` when the question `test only (y/n)` prompts to the terminal.
