@@ -413,7 +413,8 @@ else:
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-6)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=15, gamma=0.5)
 device = 'cuda:0'
-# model.load_state_dict(torch.load("npn_saves/best_location_model"))
+if only_test:
+    model.load_state_dict(torch.load("npn_saves/best_location_model"))
 model.to(device)
 classifier_option = 1
 

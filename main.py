@@ -1,5 +1,5 @@
 import sys
-sys.path.append("..")
+
 
 import json
 import spacy
@@ -628,7 +628,7 @@ else:
     start_e = 0
     end_e = len(train_propara_roberta_qa)
 
-optimizer = torch.optim.SGD(model.parameters(), lr=3e-4)
+optimizer = torch.optim.SGD(model.parameters(), lr=2e-4)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.5)
 device = 'cuda:0'
 if Test:
