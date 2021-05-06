@@ -12,6 +12,8 @@ To use this implmentation you need to install the following packages:
 > spacy
 > 
 > difflib
+> 
+> stemming
 
 ## Getting Started
 ### Data Preprocessing
