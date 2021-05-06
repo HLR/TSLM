@@ -14,6 +14,8 @@ To use this implmentation you need to install the following packages:
 > difflib
 > 
 > stemming
+> 
+> inflect
 
 ## Getting Started
 ### Data Preprocessing
