@@ -11,8 +11,6 @@ To use this implmentation you need to install the following packages:
 > 
 > spacy 2.*
 > 
-> difflib
-> 
 > stemming
 > 
 > inflect
